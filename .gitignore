@@ -170,6 +170,7 @@ modules.xml
 # End of https://www.gitignore.io/api/node,phpstorm+all
 
 # custom
+package.json
 package-lock.json
 dist/
 test/
