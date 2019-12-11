@@ -4,10 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <title>JUNG</title>
+    <style>
+        html, body {position: relative;height: 100%;}
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .wrap_ticker {position:relative;overflow:hidden;width:600px;height:50px;background:#ddd;border-radius:20px;}
+        .wrap_ticker.open {height:250px}
+        .swiper_toggle {position:absolute;right:10px;top:13px;border:1px solid #ccc;background:none;}
+    </style>
 </head>
 <body>
- <h1>Welcome Home!</h1>
- <h2>Start</h2>
+<div class="wrap_ticker">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <a href="#1" class="swiper-slide">
+                <strong>제목</strong>
+                <span>텍스트1</span>
+            </a>
+            <a href="#2" class="swiper-slide">
+                <strong>제목</strong>
+                <span>텍스트2</span>
+            </a>
+            <a href="#3" class="swiper-slide">
+                <strong>제목</strong>
+                <span>텍스트3</span>
+            </a>
+            <a href="#4" class="swiper-slide">
+                <strong>제목</strong>
+                <span>텍스트4</span>
+            </a>
+            <a href="#5" class="swiper-slide">
+                <strong>제목</strong>
+                <span>텍스트5</span>
+            </a>
+        </div>
+        <button type="button" class="swiper_toggle">펼치기</button>
+    </div>
+</div>
+
+<script>
+    var ticker = new Swiper('.swiper-container', {
+        direction: 'vertical',
+        slidesPerView: 1,
+        autoplay: {
+            delay: 2000,
+        },
+        loop: true,
+        loopAdditionalSlides: 5
+    });
+    $('.swiper_toggle').on('click', function () {
+        if ($(this).hasClass('close')) {
+            $(this).removeClass('close').text('펼치기');
+            ticker.autoplay.start();
+            $('.wrap_ticker').removeClass('open');
+        } else {
+            $(this).addClass('close').text('닫기');
+            ticker.autoplay.stop();
+            $('.wrap_ticker').addClass('open');
+        }
+    })
+</script>
 </body>
 </html>
