@@ -7,17 +7,27 @@
     <title>Document</title>
     <style>
         main {height:2000px}
-        footer {position:fixed;bottom:0;left:0;width:100%;height:68px;background:#f5b335;transition: top 0.2s ease-in-out;}
-        .tab_bar_down {bottom:-68px;}
+        .bottom_btn {position:fixed;bottom:78px;left:0;width:100%;height:68px;background:red;transition: bottom 0.2s ease-in-out;}
+        .bottom_bar {position:fixed;bottom:0;left:0;width:100%;height:68px;background:green;transition: bottom 0.2s ease-in-out;}
+        .bottom_btn.bottom_down {bottom:10px}
+        .bottom_bar.bottom_down {bottom:-68px;}
     </style>
 </head>
 <body>
     <header></header>
     <main></main>
-    <footer></footer>
+    <div class="bottom_btn"></div>
+    <div class="bottom_bar"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-        var didScroll; // 스크롤 알림
+        var didScroll,
+            lastScrollTop = 0,
+            startTop = 5,
+            bottomBarEl = $('.bottom_bar'),
+            bottomBtnEl = $('.bottom_btn'),
+            bottomBarHeight = bottomBarEl.outerHeight();
+            
+
         $(window).scroll(function(event){
             didScroll = true;
         });
@@ -26,19 +36,25 @@
                 hasScrolled();
                 didScroll = false; 
             } 
-        }, 250); 
+        }, 250);
+        
         function hasScrolled() {
-            var lastScrollTop = 0;
-            var startTop = 5;
-            var tabBarHeight = $('header').outerHeight();
             var currentScroll = $(this).scrollTop();
 
-            if (Math.abs(lastScrollTop - currentScroll) <= startTop);
-            return;
-
-            if (currentScroll > lastScrollTop && currentScroll > tabBarHeight) {
-                $('footer').removeClass('tab_bar_up').addClass('tab_bar_down');
+            if (Math.abs(lastScrollTop - currentScroll) <= startTop) {
+                return;
+            }
+            
+            if (currentScroll > lastScrollTop && currentScroll > bottomBarHeight) {
+                bottomBtnEl.removeClass('bottom_up').addClass('bottom_down');
+                bottomBarEl.removeClass('bottom_up').addClass('bottom_down');
                 lastScrollTop = currentScroll;
+            } else {
+                if (currentScroll + $(window).height() < $(document).height()) {
+                    bottomBtnEl.removeClass('bottom_down').addClass('bottom_up');
+                    bottomBarEl.removeClass('bottom_down').addClass('bottom_up');
+                    lastScrollTop = currentScroll;
+                }
             }
         }
     </script>
