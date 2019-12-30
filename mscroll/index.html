@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {}
+        footer {position:fixed;bottom:0;left:0;width:100%;height:68px;background:#f5b335;transition: top 0.2s ease-in-out;}
+        .tab_bar_down {bottom:-68px;}
+    </style>
+</head>
+<body>
+    <header></header>
+    <main></main>
+    <footer></footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        var didScroll; // 스크롤 알림
+        $(window).scroll(function(event){
+            didScroll = true;
+        });
+        setInterval(function() { 
+            if (didScroll) { 
+                hasScrolled();
+                didScroll = false; 
+            } 
+        }, 250); 
+        function hasScrolled() {
+            var lastScrollTop = 0;
+            var startTop = 5;
+            var tabBarHeight = $('header').outerHeight();
+            var currentScroll = $(this).scrollTop();
+
+            if (Math.abs(lastScrollTop - currentScroll) <= startTop);
+            return;
+
+            if (currentScroll > lastScrollTop && currentScroll > tabBarHeight) {
+                $('footer').removeClass('tab_bar_up').addClass('tab_bar_down');
+                lastScrollTop = currentScroll;
+            }
+        }
+    </script>
+</body>
+</html>
